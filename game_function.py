@@ -12,7 +12,7 @@ def check_keyup_events(event,ship):
         ship.moving_right=False
     elif event.key==pygame.K_LEFT:
         ship.moving_left=False
-def check_ivents(ship):
+def check_events(ship):
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             exit()
