@@ -17,7 +17,7 @@ def run_game():
     pygame.display.set_caption("Alien invasion")
     #Start main cicle of the game
     while True:
-        gf.check_ivents(ai_settings,ship,bullets)
+        gf.check_events(ai_settings,ship,bullets)
         gf.update_screen(ai_settings,screen,ship,naruto,bullets)
         ship.update()
         bullets.update()
