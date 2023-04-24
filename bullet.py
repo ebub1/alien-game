@@ -1,5 +1,5 @@
 import pygame
-from pygame import Sprite
+from pygame.sprite import Sprite
 class Bullet(Sprite):
     """Class for bullets control"""
     def __init__(self,ai_settings, screen,ship):
@@ -14,3 +14,13 @@ class Bullet(Sprite):
         self.color = ai_settings.bullet_color
         self.speed_factor = ai_settings.bullet_speed_factor
 
+    def update(self):
+        """To move bullet up to the top of the screen"""
+        #update bullet position in real format
+        self.y -=self.speed_factor
+        #update rect position
+        self.rect.y = self.y
+    
+    def draw_bullet(self):
+        """Putting the bullet on the screen"""
+        pygame.draw.rect(self.screen,self.color,self.rect)
