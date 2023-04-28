@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pygame
 from pygame.sprite import Sprite
 class Bullet(Sprite):

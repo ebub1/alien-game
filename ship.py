@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pygame
 class Ship:
     def __init__(self,ai_settings,screen):
