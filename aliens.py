@@ -4,7 +4,7 @@ import sys
 import pygame
 from settings import Settings
 from ship import Ship
-from naruto import Naruto 
+from alien import Alien 
 import game_function as gf
 from pygame.sprite import Group
 def run_game():
@@ -15,13 +15,14 @@ def run_game():
     ship=Ship(ai_settings,screen)
     #creating a group to store bullets
     bullets = Group()
-    naruto=Naruto(screen)
+    #creating an alien
+    alien = Alien(ai_settings,screen)
     pygame.display.set_caption("Alien invasion")
     #Start main cycle of the game
     while True:
         gf.check_events(ai_settings,screen, ship, bullets)
         ship.update()
         gf.update_bullets(bullets)
-        gf.update_screen(ai_settings, screen, ship, bullets)
+        gf.update_screen(ai_settings, screen, ship, alien, bullets)
             
 run_game()
