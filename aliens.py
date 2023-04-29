@@ -18,7 +18,7 @@ def run_game():
     #creating an alien
     aliens = Group()
     #Creating fleet
-    gf.create_fleet(ai_settings,screen,aliens)
+    gf.create_fleet(ai_settings,screen,ship, aliens)
     pygame.display.set_caption("Alien invasion")
     #Start main cycle of the game
     while True:
