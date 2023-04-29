@@ -42,21 +42,26 @@ def update_bullets(bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <=0:
             bullets.remove(bullet)
-def create_fleet(ai_settings, screen, aliens):
-    """Create a fleet of aliens"""
-    # Create an alien and calculate  amount of aliens in row
-    # Interval between aliens equal width of alien
-    alien = Alien(ai_settings, screen)
-    alien_width =alien.rect.width
+    
+def get_number_aliens_x(ai_settings, alien_width):
+    # Calculate  amount of aliens in row
     available_space_x = ai_settings.screen_width - 2 * alien_width
     number_aliens_x = int(available_space_x / (2 * alien_width))
+    return number_aliens_x
+def create_alien(ai_settings, screen, aliens, alien_number):
     #Create first row of aliens
+    alien = Alien(ai_settings, screen)
+    alien_width =alien.rect.width
+    alien.x = alien_width + 2 * alien_width * alien_number
+    alien.rect.x = alien.x
+    aliens.add(alien)
+def create_fleet(ai_settings, screen, aliens):
+    """Create a fleet of aliens"""
+    alien = Alien(ai_settings, screen)
+    number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)
     for alien_number in range(number_aliens_x):
-        #Create alien and locate position on a row
-        alien = Alien(ai_settings, screen)
-        alien.x = alien_width + 2 * alien_width * alien_number
-        alien.rect.x = alien.x
-        aliens.add(alien)
+        create_alien(ai_settings, screen, aliens, alien_number)
+
 def update_screen(ai_settings, screen, ship, aliens, bullets):
     #The screen is redrawn on each iteration of the loop
     screen.fill(ai_settings.bg_colour)
