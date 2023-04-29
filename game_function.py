@@ -3,6 +3,7 @@
 import pygame
 import sys
 from bullet import Bullet
+from alien import Alien
 #tracking keyboard and mouse movements
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
     if event.key==pygame.K_RIGHT:
@@ -41,13 +42,27 @@ def update_bullets(bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <=0:
             bullets.remove(bullet)
-
-def update_screen(ai_settings, screen, ship, alien, bullets):
+def create_fleet(ai_settings, screen, aliens):
+    """Create a fleet of aliens"""
+    # Create an alien and calculate  amount of aliens in row
+    # Interval between aliens equal width of alien
+    alien = Alien(ai_settings, screen)
+    alien_width =alien.rect.width
+    available_space_x = ai_settings.screen_width - 2 * alien_width
+    number_aliens_x = int(available_space_x / (2 * alien_width))
+    #Create first row of aliens
+    for alien_number in range(number_aliens_x):
+        #Create alien and locate position on a row
+        alien = Alien(ai_settings, screen)
+        alien.x = alien_width + 2 * alien_width * alien_number
+        alien.rect.x = alien.x
+        aliens.add(alien)
+def update_screen(ai_settings, screen, ship, aliens, bullets):
     #The screen is redrawn on each iteration of the loop
     screen.fill(ai_settings.bg_colour)
     #All the bullets draw behinde the ship and alien
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     ship.blitme()
-    alien.blitme()
+    aliens.draw(screen)
     pygame.display.flip() 
