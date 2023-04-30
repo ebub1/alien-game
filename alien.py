@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from typing import Any
 import pygame
 from pygame.sprite import Sprite
 class Alien(Sprite):
@@ -17,6 +18,10 @@ class Alien(Sprite):
         self.rect.y=self.rect.height
         #Save exact alien position 
         self.x=float(self.rect.x)
+    def update(self):
+        """Move alien ship to the right"""
+        self.x += self.ai_settings.alien_speed_factor
+        self.rect.x = self.x
         
     def blitme(self):
         '''Drawing the alien ship in current position'''
