@@ -15,9 +15,11 @@ def run_game():
     ship=Ship(ai_settings,screen)
     #creating a group to store bullets
     bullets = Group()
-    #creating an alien
-    aliens = Group()
+    #creating star group
+    stars = Group()
+    gf.create_sky(ai_settings, screen, stars)
     #Creating fleet
+    aliens = Group()
     gf.create_fleet(ai_settings,screen,ship, aliens)
     pygame.display.set_caption("Alien invasion")
     #Start main cycle of the game
@@ -25,6 +27,6 @@ def run_game():
         gf.check_events(ai_settings,screen, ship, bullets)
         ship.update()
         gf.update_bullets(bullets)
-        gf.update_screen(ai_settings, screen, ship, aliens, bullets)
+        gf.update_screen(ai_settings, screen, stars, ship, aliens, bullets)
             
 run_game()
