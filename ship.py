@@ -20,6 +20,9 @@ class Ship:
         #flags for movings
         self.moving_right=False
         self.moving_left=False
+    def center_ship(self):
+        """Put ship in the center"""
+        self.center = self.screen_rect.centerx
     def update(self):
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.center +=self.ai_settings.ship_speed_factor

@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
 import pygame
+import time
 import sys
 from bullet import Bullet
 from alien import Alien
 from star import Star
 from random import randint
+
 #tracking keyboard and mouse movements
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
     if event.key==pygame.K_RIGHT:
@@ -94,10 +96,13 @@ def change_fleet_direction(ai_settings, aliens):
     for alien in aliens.sprites():
         alien.rect.y += ai_settings.fleet_drop_speed
     ai_settings.fleet_direction *= -1
-def update_aliens(ai_settings, ship, aliens):
+def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     """check if alien rech edge and update position all aliens in the fleet"""
     check_fleet_edges(ai_settings, ship, aliens)
     aliens.update()
+    #Check collisions aliens-ship
+    if pygame.sprite.spritecollideany(ship, aliens):
+        ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
 
 def get_number_star_x(ai_settings, star_width):
     # Calculate  amount of star in row
@@ -126,6 +131,19 @@ def create_sky(ai_settings, screen, stars):
     for star_row_number in range(star_number_rows):
         for star_number in range(number_star_x):
             create_star(ai_settings, screen, stars, star_number, star_row_number)
+
+def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+    """Process collision alien-ship"""
+    #Reducing ships_left
+    stats.ships_left -=1
+    #Cleaning lists of aliens and bullets
+    aliens.empty()
+    bullets.empty()
+    #Creating new fleet and put new ship on the center
+    create_fleet(ai_settings, screen, ship, aliens)
+    ship.center_ship()
+    #Pause
+    sleep(0.5)
 
 def update_screen(ai_settings, screen, stars, ship, aliens, bullets):
     #The screen is redrawn on each iteration of the loop
