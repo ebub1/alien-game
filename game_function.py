@@ -52,7 +52,7 @@ def check_bullet_alien_collisions(ai_settings, screen,ship,aliens, bullets):
     collisions = pygame.sprite.groupcollide( aliens, bullets, True, True)
     if len(aliens) == 0:
         #Delete bullets and create new fleet
-        bullet.empty()
+        bullets.empty()
         create_fleet(ai_settings, screen, ship, aliens)
     
 def get_number_aliens_x(ai_settings, alien_width):
