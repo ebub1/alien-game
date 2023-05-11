@@ -93,7 +93,7 @@ def change_fleet_direction(ai_settings, aliens):
     """Down all fleet and change direction"""
     for alien in aliens.sprites():
         alien.rect.y += ai_settings.fleet_drop_speed
-        ai_settings.fleet_direction *= -1
+    ai_settings.fleet_direction *= -1
 def update_aliens(ai_settings, ship, aliens):
     """check if alien rech edge and update position all aliens in the fleet"""
     check_fleet_edges(ai_settings, ship, aliens)
