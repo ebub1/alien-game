@@ -143,16 +143,19 @@ def create_sky(ai_settings, screen, stars):
 
 def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     """Process collision alien-ship"""
-    #Reducing ships_left
-    stats.ships_left -=1
-    #Cleaning lists of aliens and bullets
-    aliens.empty()
-    bullets.empty()
-    #Creating new fleet and put new ship on the center
-    create_fleet(ai_settings, screen, ship, aliens)
-    ship.center_ship()
-    #Pause
-    sleep(0.5)
+    if stats.ships_left >0:
+        #Reducing ships_left
+        stats.ships_left -=1
+        #Cleaning lists of aliens and bullets
+        aliens.empty()
+        bullets.empty()
+        #Creating new fleet and put new ship on the center
+        create_fleet(ai_settings, screen, ship, aliens)
+        ship.center_ship()
+        #Pause
+        sleep(0.5)
+    else:
+        stats.game_active = False
 
 def update_screen(ai_settings, screen, stars, ship, aliens, bullets):
     #The screen is redrawn on each iteration of the loop
