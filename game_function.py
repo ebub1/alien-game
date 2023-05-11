@@ -96,6 +96,13 @@ def change_fleet_direction(ai_settings, aliens):
     for alien in aliens.sprites():
         alien.rect.y += ai_settings.fleet_drop_speed
     ai_settings.fleet_direction *= -1
+def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
+    """Check aliens reach the bottom"""
+    screen_rect = screen.get_rect()
+    for alien in aliens.sprites():
+        if alien.rect.bottom >= screen_rect.bottom:
+            ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+
 def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     """check if alien rech edge and update position all aliens in the fleet"""
     check_fleet_edges(ai_settings, ship, aliens)
@@ -103,6 +110,8 @@ def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     #Check collisions aliens-ship
     if pygame.sprite.spritecollideany(ship, aliens):
         ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+    #Check aliens reach the bottom
+    check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
 
 def get_number_star_x(ai_settings, star_width):
     # Calculate  amount of star in row
