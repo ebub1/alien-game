@@ -7,7 +7,7 @@ class GameStat():
         self.ai_settings = ai_settings
         self.reset_stat()
         #Game starts when flag is active
-        self.game_active = True
+        self.game_active = False
     def reset_stat(self):
         """Initializing statistic which change during the game"""
         self.ships_left = self.ai_settings.ship_limit
