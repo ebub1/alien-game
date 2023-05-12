@@ -157,7 +157,7 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     else:
         stats.game_active = False
 
-def update_screen(ai_settings, screen, stars, ship, aliens, bullets):
+def update_screen(ai_settings, screen, stats, stars, ship, aliens, bullets, play_button):
     #The screen is redrawn on each iteration of the loop
     screen.fill(ai_settings.bg_colour)
     stars.draw(screen)
@@ -166,4 +166,7 @@ def update_screen(ai_settings, screen, stars, ship, aliens, bullets):
         bullet.draw_bullet()
     ship.blitme()
     aliens.draw(screen)
+    #Button Play shows when game not active
+    if not stats.game_active:
+        play_button.draw_button() 
     pygame.display.flip() 

@@ -8,6 +8,7 @@ from alien import Alien
 import game_function as gf
 from pygame.sprite import Group
 from game_stats import GameStat
+from button import Button
 def run_game():
     pygame.init()
     ai_settings=Settings()
@@ -25,6 +26,8 @@ def run_game():
     pygame.display.set_caption("Alien invasion")
     #Creating examle to storage statistic
     stats = GameStat(ai_settings)
+    #Create a button Play
+    play_button = Button(ai_settings, screen, "Play")
     #Start main cycle of the game
     while True:
         gf.check_events(ai_settings,screen, ship, bullets)
@@ -32,6 +35,6 @@ def run_game():
             ship.update()
             gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
             gf.update_aliens(ai_settings,stats, screen, ship, aliens, bullets)
-            gf.update_screen(ai_settings, screen, stars, ship, aliens, bullets)
+            gf.update_screen(ai_settings, screen, stars, ship, aliens, bullets, play_button)
             
 run_game()
