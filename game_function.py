@@ -46,7 +46,7 @@ def check_play_button(stats, play_button,mouse_x, mouse_y):
     """Starts new game if you push button play"""
     if play_button.rect.collidepoint(mouse_x, mouse_y):
         stats.game_active = True
-               
+
 def update_bullets(ai_settings, screen, ship, aliens, bullets):
     """Bullet position update and delete the old one"""
     #Bullet position update
@@ -92,14 +92,14 @@ def create_fleet(ai_settings, screen,ship, aliens):
     for row_number in range(number_rows):
         for alien_number in range(number_aliens_x):
             create_alien(ai_settings, screen, aliens, alien_number, row_number)
-def check_fleet_edges(ai_settings, ship, aliens):
+def check_fleet_edges(ai_settings, stats, screen, ship, aliens, bullets):
     """React when alien reach edges"""
     for alien in aliens.sprites():
         if alien.check_edges():
             change_fleet_direction(ai_settings, aliens)
             break
         if pygame.sprite.spritecollideany(ship, aliens):
-            print("Ship hit!!!")
+            ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
 def change_fleet_direction(ai_settings, aliens):
     """Down all fleet and change direction"""
     for alien in aliens.sprites():
@@ -114,7 +114,7 @@ def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
 
 def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
     """check if alien rech edge and update position all aliens in the fleet"""
-    check_fleet_edges(ai_settings, ship, aliens)
+    check_fleet_edges(ai_settings, stats, screen, ship, aliens, bullets)
     aliens.update()
     #Check collisions aliens-ship
     if pygame.sprite.spritecollideany(ship, aliens):
@@ -162,7 +162,7 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
         create_fleet(ai_settings, screen, ship, aliens)
         ship.center_ship()
         #Pause
-        sleep(0.5)
+        time.sleep(0.5)
     else:
         stats.game_active = False
 
