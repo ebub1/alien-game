@@ -55,7 +55,8 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens,bull
         #Creating a new fleet in the center
         create_fleet(ai_settings, screen, ship, aliens)
         ship.center_ship()
-
+        #Hide courser  
+        pygame.mouse.set_visible(False)
 
 def update_bullets(ai_settings, screen, ship, aliens, bullets):
     """Bullet position update and delete the old one"""
@@ -175,6 +176,7 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
         time.sleep(0.5)
     else:
         stats.game_active = False
+        pygame.mouse.set_visible(True)
 
 def update_screen(ai_settings, screen, stats, stars, ship, aliens, bullets, play_button):
     #The screen is redrawn on each iteration of the loop
