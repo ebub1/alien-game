@@ -170,7 +170,7 @@ def update_screen(ai_settings, screen, stats, stars, ship, aliens, bullets, play
     #The screen is redrawn on each iteration of the loop
     screen.fill(ai_settings.bg_colour)
     stars.draw(screen)
-    #All the bullets draw behinde the ship and alien
+    #All the bullets draw behind the ship and alien
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     ship.blitme()
@@ -178,4 +178,5 @@ def update_screen(ai_settings, screen, stats, stars, ship, aliens, bullets, play
     #Button Play shows when game not active
     if not stats.game_active:
         play_button.draw_button() 
-    pygame.display.flip() 
+    pygame.display.flip()
+     
