@@ -19,7 +19,7 @@ class Settings:
         self.fleet_drop_speed = 50
         #temp speed up 
         self.speedup_scale = 1.2
-        self.score_scale = 1.5
+        self.score_scale = 1.2
         self.initialize_dynamic_settings()
         self.alien_points = 1000
     def initialize_dynamic_settings(self):
