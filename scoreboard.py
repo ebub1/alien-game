@@ -11,7 +11,7 @@ class Scoreboard():
         self.ai_settings = ai_settings
         self.stats = stats
         #font settings
-        self.text_color = (30, 30, 30)
+        self.text_color = (250, 250, 250)
         self.font = pygame.font.SysFont(None, 48)
         #preparing source image
         self.prep_score()
@@ -19,7 +19,7 @@ class Scoreboard():
     def prep_score(self):
         """Preparing current score into image"""
         score_str = str(self.stats.score)
-        self.score_image = self.font.render(score_str, True, self.text_color, self.ai_settings.bg_color)
+        self.score_image = self.font.render(score_str, True, self.text_color, self.ai_settings.bg_colour)
         self.score_rect = self.score_image.get_rect()
         self.score_rect.right = self.screen_rect.right - 20
         self.score_rect.top = 20
