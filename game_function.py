@@ -67,7 +67,7 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens,bull
         start_game(ai_settings, screen, stats, ship, aliens,bullets)
 
 
-def update_bullets(ai_settings, screen, ship, aliens, bullets):
+def update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets):
     """Bullet position update and delete the old one"""
     #Bullet position update
     bullets.update()
@@ -75,9 +75,9 @@ def update_bullets(ai_settings, screen, ship, aliens, bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <=0:
             bullets.remove(bullet)
-        check_bullet_alien_collisions(ai_settings, screen,ship,aliens, bullets)    
+        check_bullet_alien_collisions(ai_settings, screen, stats, sb,ship,aliens, bullets)    
         
-def check_bullet_alien_collisions(ai_settings, screen,ship,aliens, bullets):       
+def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship,aliens, bullets):       
     #Check if bullet collide alien
     #when collision is happened delete bullet
     collisions = pygame.sprite.groupcollide( aliens, bullets, True, True)
@@ -86,6 +86,10 @@ def check_bullet_alien_collisions(ai_settings, screen,ship,aliens, bullets):
         bullets.empty()
         ai_settings.increase_speed()
         create_fleet(ai_settings, screen, ship, aliens)
+    if collisions:
+        for aliens in collisions.values():
+            stats.score += ai_settings.alien_points*len(aliens)
+            sb.prep_score()
     
 def get_number_aliens_x(ai_settings, alien_width):
     # Calculate  amount of aliens in row
