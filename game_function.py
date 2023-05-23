@@ -57,6 +57,7 @@ def start_game(ai_settings, screen, stats, ship,
     #Creating a new fleet in the center
     create_fleet(ai_settings, screen, ship, aliens)
     ship.center_ship()
+    ai_settings.initialize_dynamic_settings()
     #Hide courser  
     pygame.mouse.set_visible(False)
 def check_play_button(ai_settings, screen, stats, play_button, ship, aliens,bullets, mouse_x, mouse_y):
@@ -64,6 +65,7 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens,bull
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not stats.game_active:
         start_game(ai_settings, screen, stats, ship, aliens,bullets)
+
 
 def update_bullets(ai_settings, screen, ship, aliens, bullets):
     """Bullet position update and delete the old one"""

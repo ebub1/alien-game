@@ -18,7 +18,7 @@ class Settings:
         #aliens parameters
         self.fleet_drop_speed = 50
         #temp speed up 
-        self.speedup_scale = 1.5
+        self.speedup_scale = 1.2
         self.initialize_dynamic_settings()
     def initialize_dynamic_settings(self):
         self.ship_speed_factor = 1.5
