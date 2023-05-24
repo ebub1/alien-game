@@ -8,6 +8,8 @@ class GameStat():
         self.reset_stat()
         #Game starts when flag is active
         self.game_active = False
+        #Record must not reset
+        self.high_score = 0
     def reset_stat(self):
         """Initializing statistic which change during the game"""
         self.ships_left = self.ai_settings.ship_limit

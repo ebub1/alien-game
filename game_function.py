@@ -45,8 +45,8 @@ def check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             check_play_button(ai_settings, screen, stats, play_button, ship, aliens,bullets, mouse_x, mouse_y)
-def start_game(ai_settings, screen, stats, ship,
- aliens,bullets):
+
+def start_game(ai_settings, screen, stats, ship, aliens, bullets):
     """Starts new game with clear all sets"""
     #reset of game stat
     stats.reset_stat()
@@ -90,6 +90,14 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship,aliens, b
         for aliens in collisions.values():
             stats.score += ai_settings.alien_points*len(aliens)
             sb.prep_score()
+        check_high_score(stats, sb)
+
+def check_high_score(stats, sb):
+    """Check if we have new record"""
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+    sb.prep_high_score
+
     
 def get_number_aliens_x(ai_settings, alien_width):
     # Calculate  amount of aliens in row
@@ -191,6 +199,7 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
     else:
         stats.game_active = False
         pygame.mouse.set_visible(True)
+
 
 def update_screen(ai_settings, screen, stats, stars, sb, ship, aliens, bullets, play_button):
     #The screen is redrawn on each iteration of the loop
