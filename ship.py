@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
-
 import pygame
-class Ship:
+from pygame.sprite import Sprite
+
+class Ship():
     def __init__(self,ai_settings,screen):
         self.ai_settings=ai_settings
-        
         #initiating ship and it's start position
         self.screen=screen
         #downloading the ship and initiating a rectangle
-        self.image=pygame.image.load(
-            'ship2.png'
-            )
+        self.image=pygame.image.load('ship2.png')
         self.rect=self.image.get_rect()
         self.screen_rect=screen.get_rect()
         #every new ship appears in on the rigt of screenbottom
@@ -33,3 +31,14 @@ class Ship:
         '''Drawing the ship in current position'''
         self.screen.blit(self.image,self.rect)
 
+class Ship_live(Sprite):
+    def __init__(self,screen):
+        super(Ship_live, self).__init__()
+        self.screen=screen
+        #downloading the ship live image and initiating a rectangle
+        self.image = pygame.image.load('ship_live.png')
+        self.rect = self.image.get_rect()
+        self.screen_rect = screen.get_rect()
+    def blitme(self):
+        '''Drawing the ship live in current position'''
+        self.screen.blit(self.ship_live_image, self.rect)

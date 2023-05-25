@@ -53,6 +53,7 @@ def start_game(ai_settings, screen, stats, sb, ship, aliens, bullets):
     stats.reset_stat()
     sb.prep_level()
     sb.prep_score()
+    sb.prep_ships()
     stats.game_active = True
     #Clear lists of aliens and bullets
     aliens.empty()
@@ -144,22 +145,43 @@ def change_fleet_direction(ai_settings, aliens):
     for alien in aliens.sprites():
         alien.rect.y += ai_settings.fleet_drop_speed
     ai_settings.fleet_direction *= -1
-def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
+def check_aliens_bottom(ai_settings, stats, sb, screen, ship, aliens, bullets):
     """Check aliens reach the bottom"""
     screen_rect = screen.get_rect()
     for alien in aliens.sprites():
         if alien.rect.bottom >= screen_rect.bottom:
-            ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+            ship_hit(ai_settings, stats, sb, screen, ship, aliens, bullets)
 
-def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
+def update_aliens(ai_settings, stats, sb, screen, ship, aliens, bullets):
     """check if alien rech edge and update position all aliens in the fleet"""
     check_fleet_edges(ai_settings, stats, screen, ship, aliens, bullets)
     aliens.update()
     #Check collisions aliens-ship
     if pygame.sprite.spritecollideany(ship, aliens):
-        ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+        ship_hit(ai_settings, stats, sb, screen, ship, aliens, bullets)
     #Check aliens reach the bottom
-    check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
+    check_aliens_bottom(ai_settings, stats, sb, screen, ship, aliens, bullets)
+
+def ship_hit(ai_settings, stats, sb, screen, ship, aliens, bullets):
+    """Process collision alien-ship"""
+    if stats.ships_left >0:
+        #Reducing ships_left
+        stats.ships_left -=1
+        #Update ships lefts
+        sb.prep_ships()
+        #Cleaning lists of aliens and bullets
+        aliens.empty()
+        bullets.empty()
+        #Creating new fleet and put new ship on the center
+        create_fleet(ai_settings, screen, ship, aliens)
+        ship.center_ship()
+        #Pause
+        time.sleep(0.5)
+    else:
+        stats.game_active = False
+        pygame.mouse.set_visible(True)
+
+
 
 def get_number_star_x(ai_settings, star_width):
     # Calculate  amount of star in row
@@ -188,23 +210,6 @@ def create_sky(ai_settings, screen, stars):
     for star_row_number in range(star_number_rows):
         for star_number in range(number_star_x):
             create_star(ai_settings, screen, stars, star_number, star_row_number)
-
-def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
-    """Process collision alien-ship"""
-    if stats.ships_left >0:
-        #Reducing ships_left
-        stats.ships_left -=1
-        #Cleaning lists of aliens and bullets
-        aliens.empty()
-        bullets.empty()
-        #Creating new fleet and put new ship on the center
-        create_fleet(ai_settings, screen, ship, aliens)
-        ship.center_ship()
-        #Pause
-        time.sleep(0.5)
-    else:
-        stats.game_active = False
-        pygame.mouse.set_visible(True)
 
 
 def update_screen(ai_settings, screen, stats, stars, sb, ship, aliens, bullets, play_button):

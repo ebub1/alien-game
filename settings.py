@@ -16,7 +16,7 @@ class Settings:
         self.bullet_color = 250, 250, 250
         self.bullets_allowed = 3
         #aliens parameters
-        self.fleet_drop_speed = 50
+        self.fleet_drop_speed = 10
         #temp speed up 
         self.speedup_scale = 1.2
         self.score_scale = 1.2
@@ -25,7 +25,7 @@ class Settings:
     def initialize_dynamic_settings(self):
         self.ship_speed_factor = 1.5
         self.bullet_speed_factor = 1
-        self.alien_speed_factor = 3
+        self.alien_speed_factor = 1
         #fleet direction =1 moving to the right if -1 to the left
         self.fleet_direction = 1
         self.alien_points = 50
