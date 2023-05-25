@@ -132,14 +132,14 @@ def create_fleet(ai_settings, screen,ship, aliens):
     for row_number in range(number_rows):
         for alien_number in range(number_aliens_x):
             create_alien(ai_settings, screen, aliens, alien_number, row_number)
-def check_fleet_edges(ai_settings, stats, screen, ship, aliens, bullets):
+def check_fleet_edges(ai_settings, stats, sb, screen, ship, aliens, bullets):
     """React when alien reach edges"""
     for alien in aliens.sprites():
         if alien.check_edges():
             change_fleet_direction(ai_settings, aliens)
             break
         if pygame.sprite.spritecollideany(ship, aliens):
-            ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+            ship_hit(ai_settings, stats, sb, screen, ship, aliens, bullets)
 def change_fleet_direction(ai_settings, aliens):
     """Down all fleet and change direction"""
     for alien in aliens.sprites():
@@ -154,7 +154,7 @@ def check_aliens_bottom(ai_settings, stats, sb, screen, ship, aliens, bullets):
 
 def update_aliens(ai_settings, stats, sb, screen, ship, aliens, bullets):
     """check if alien rech edge and update position all aliens in the fleet"""
-    check_fleet_edges(ai_settings, stats, screen, ship, aliens, bullets)
+    check_fleet_edges(ai_settings, stats, sb, screen, ship, aliens, bullets)
     aliens.update()
     #Check collisions aliens-ship
     if pygame.sprite.spritecollideany(ship, aliens):
