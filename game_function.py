@@ -51,6 +51,7 @@ def start_game(ai_settings, screen, stats, sb, ship, aliens, bullets):
     """Starts new game with clear all sets"""
     #reset of game stat
     stats.reset_stat()
+    sb.prep_level()
     sb.prep_score()
     stats.game_active = True
     #Clear lists of aliens and bullets
@@ -87,11 +88,15 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship,aliens, b
         bullets.empty()
         ai_settings.increase_speed()
         create_fleet(ai_settings, screen, ship, aliens)
+        #Level up
+        stats.level +=1
+        sb.prep_level()
     if collisions:
         for aliens in collisions.values():
             stats.score += ai_settings.alien_points*len(aliens)
             sb.prep_score()
-            check_high_score(stats, sb)
+        check_high_score(stats, sb)
+
 
 def check_high_score(stats, sb):
     """Check if we have new record"""

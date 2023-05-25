@@ -25,7 +25,7 @@ class Settings:
     def initialize_dynamic_settings(self):
         self.ship_speed_factor = 1.5
         self.bullet_speed_factor = 1
-        self.alien_speed_factor = 5
+        self.alien_speed_factor = 3
         #fleet direction =1 moving to the right if -1 to the left
         self.fleet_direction = 1
         self.alien_points = 50
